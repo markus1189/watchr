@@ -76,7 +76,7 @@ module Watchr
     #   list of all monitored paths
     #
     def monitored_paths
-      paths = Dir['**/*'].select do |path|
+      paths = Dir.glob( "**/*", File::FNM_DOTMATCH ).select do |path|
         @script.patterns.any? {|p| path.match(p) }
       end
       paths.push(@script.path).compact!
