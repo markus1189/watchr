@@ -4,3 +4,5 @@ bk/
 .wiki
 .yardoc
 *.gem
+*.un~
+tags
