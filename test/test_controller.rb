@@ -41,7 +41,7 @@ class TestController < MiniTest::Unit::TestCase
   ## monitored paths list
 
   test "fetches monitored paths" do
-    Dir.expects(:[]).at_least_once.with('**/*').returns(%w(
+    Dir.expects(:glob).at_least_once.with('**/*', File::FNM_DOTMATCH).returns(%w(
       a
       b/x.z
       b/c
@@ -55,7 +55,7 @@ class TestController < MiniTest::Unit::TestCase
   end
 
   test "doesn't fetch unmonitored paths" do
-    Dir.expects(:[]).at_least_once.with('**/*').returns(%w(
+    Dir.expects(:glob).at_least_once.with('**/*', File::FNM_DOTMATCH).returns(%w(
       a
       b/x.z
       b/c
@@ -70,7 +70,7 @@ class TestController < MiniTest::Unit::TestCase
   end
 
   test "monitored paths include script" do
-    Dir.expects(:[]).at_least_once.with('**/*').returns(%w( a ))
+    Dir.expects(:glob).at_least_once.with('**/*', File::FNM_DOTMATCH).returns(%w( a ))
     Script.any_instance.stubs(:parse!)
 
     path   = to_p('some/file')
